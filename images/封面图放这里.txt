@@ -1,0 +1,13 @@
+把作品封面图放进这个文件夹（images/），然后在 index.html 里给作品填 cover 字段即可。
+
+示例：
+  cover: "images/donut.jpg"
+
+封面建议：
+- 横图，16:9 或 4:3，宽度 1200px 左右
+- 压缩到 200 KB 以内（网页加载快，评审/HR 才不会等到跑掉）
+- 页面用的是 object-fit: cover，会自动裁切填满，主体内容尽量放画面中间
+- 视频类作品截一张最有力的画面当封面，不要用黑底标题帧
+
+头像同理：把图片放进来，然后在 PROFILE 里填
+  avatar: "images/avatar.jpg"

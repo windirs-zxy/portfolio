@@ -1,0 +1,44 @@
+# ---------- 系统与编辑器 ----------
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+
+# ---------- 临时与备份 ----------
+*.tmp
+*.bak
+*.bak*
+*_备份*
+_示例*
+
+# ---------- 设计源文件（只提交导出的 jpg / png）----------
+*.psd
+*.ai
+*.blend
+*.blend1
+*.aep
+*.prproj
+
+# ---------- Python ----------
+__pycache__/
+*.pyc
+
+# ---------- 字体 ----------
+# 商业字体严禁提交（公开仓库等于分发盗版）。
+# 确需放开源字体时，在下面加一行白名单放行，例如：
+# !SourceHanSans-*.ttf
+*.ttf
+*.otf
+*.woff
+*.woff2
+
+# ---------- Ren'Py 与大体积素材 ----------
+saves/
+cache/
+traceback.txt
+errors.txt
+
+# ---------- 压缩包 ----------
+*.zip
+*.7z
+*.rar

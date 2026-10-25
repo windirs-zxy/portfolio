@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>作品集 · 张潇阳</title>
+<style>
+  :root{
+    --bg:#f7f6f3;
+    --panel:#ffffff;
+    --ink:#1c1b19;
+    --ink-2:#5c5852;
+    --ink-3:#8d8880;
+    --line:#e6e2da;
+    --line-2:#f0ede7;
+    --accent:#b1462c;
+    --accent-soft:#f6e9e4;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(28,27,25,.04), 0 8px 24px -12px rgba(28,27,25,.18);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:15px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* ---------- 布局：左分类 / 中作品 / 右作者 ---------- */
+  .layout{
+    max-width:1440px;
+    margin:0 auto;
+    padding:32px 28px 64px;
+    display:grid;
+    grid-template-columns:222px minmax(0,1fr) 320px;
+    gap:26px;
+    align-items:start;
+  }
+
+  /* ---------- 左侧分类 ---------- */
+  .nav{position:sticky;top:28px}
+  .nav-title{
+    font-size:12px;letter-spacing:.16em;color:var(--ink-3);
+    margin:0 0 14px;font-weight:600;
+  }
+  .cat{
+    display:flex;align-items:center;gap:10px;
+    width:100%;text-align:left;
+    padding:9px 12px;margin-bottom:3px;
+    border:1px solid transparent;border-radius:9px;
+    background:transparent;color:var(--ink-2);
+    font:inherit;font-size:14px;cursor:pointer;
+    transition:background .16s,color .16s,border-color .16s;
+  }
+  .cat:hover{background:var(--panel);color:var(--ink);border-color:var(--line)}
+  .cat.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .cat .ico{font-size:15px;line-height:1;width:18px;text-align:center;flex:0 0 auto}
+  .cat .nm{flex:1}
+  .cat .n{
+    font-size:12px;color:var(--ink-3);
+    font-variant-numeric:tabular-nums;flex:0 0 auto;
+  }
+  .cat.on .n{color:rgba(255,255,255,.65)}
+
+  /* ---------- 中间作品区 ---------- */
+  .head{margin-bottom:20px}
+  .head h1{
+    font-size:26px;margin:0 0 6px;letter-spacing:-.01em;font-weight:650;
+  }
+  .head p{margin:0;color:var(--ink-2);font-size:14px}
+  .searchbar{
+    display:flex;align-items:center;gap:10px;
+    background:var(--panel);border:1px solid var(--line);border-radius:11px;
+    padding:9px 14px;margin:16px 0 6px;
+  }
+  .searchbar input{
+    border:0;outline:0;background:transparent;font:inherit;flex:1;color:var(--ink);
+  }
+  .searchbar input::placeholder{color:var(--ink-3)}
+  .searchbar .k{
+    font-size:11px;color:var(--ink-3);border:1px solid var(--line);
+    border-radius:5px;padding:1px 6px;font-family:ui-monospace,monospace;
+  }
+  .crumb{
+    display:flex;align-items:baseline;gap:10px;
+    margin:22px 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line);
+  }
+  .crumb h2{font-size:18px;margin:0;font-weight:650}
+  .crumb span{font-size:13px;color:var(--ink-3)}
+  .crumb .d{color:var(--ink-2);font-size:13px}
+
+  .works{display:grid;gap:16px}
+  .work{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;box-shadow:var(--shadow);
+    animation:in .28s ease both;
+  }
+  @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .work-top{display:grid;grid-template-columns:212px minmax(0,1fr);gap:0}
+  .cover{
+    position:relative;background:#eceae4;
+    border-right:1px solid var(--line-2);
+    min-height:150px;display:flex;align-items:center;justify-content:center;
+  }
+  .cover img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+  .cover .ph{
+    font-size:12px;color:var(--ink-3);text-align:center;padding:14px;line-height:1.5;
+  }
+  .cover .ph b{display:block;font-size:13px;color:var(--ink-2);margin-bottom:4px}
+  .work-body{padding:16px 18px}
+  .work h3{
+    margin:0 0 6px;font-size:16.5px;font-weight:650;letter-spacing:-.01em;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .badge{
+    font-size:11px;font-weight:500;color:var(--accent);
+    background:var(--accent-soft);border-radius:5px;padding:1px 6px;
+    letter-spacing:.02em;
+  }
+  .badge.cat{
+    color:var(--ink-2);background:var(--line-2);
+  }
+  .summary{margin:0 0 10px;color:var(--ink-2);font-size:14px}
+  .metas{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--ink-3);margin-bottom:12px}
+  .metas b{color:var(--ink-2);font-weight:500}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2px}
+  .tag{
+    font-size:11.5px;color:var(--ink-2);background:var(--bg);
+    border:1px solid var(--line);border-radius:20px;padding:1px 9px;
+  }
+  .flow{
+    margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);
+  }
+  .flow-h{
+    font-size:11px;letter-spacing:.14em;color:var(--ink-3);
+    font-weight:600;margin-bottom:8px;
+  }
+  .steps{margin:0;padding:0;list-style:none;counter-reset:s}
+  .steps li{
+    counter-increment:s;position:relative;
+    padding:0 0 9px 26px;font-size:13.5px;color:var(--ink-2);
+  }
+  .steps li:last-child{padding-bottom:0}
+  .steps li::before{
+    content:counter(s);
+    position:absolute;left:0;top:1px;
+    width:17px;height:17px;border-radius:50%;
+    background:var(--accent-soft);color:var(--accent);
+    font-size:10.5px;font-weight:700;font-variant-numeric:tabular-nums;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .steps li::after{
+    content:"";position:absolute;left:8px;top:20px;bottom:2px;
+    width:1px;background:var(--line);
+  }
+  .steps li:last-child::after{display:none}
+  .empty{
+    background:var(--panel);border:1px dashed var(--line);border-radius:var(--radius);
+    padding:44px 20px;text-align:center;color:var(--ink-3);font-size:14px;
+  }
+
+  /* ---------- 右侧作者卡 ---------- */
+  .profile{position:sticky;top:28px}
+  .pcard{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow);
+  }
+  .avatar{
+    width:78px;height:78px;border-radius:50%;overflow:hidden;
+    background:var(--ink);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;font-weight:600;letter-spacing:.02em;
+    margin-bottom:14px;position:relative;
+  }
+  .avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .pname{font-size:19px;font-weight:650;margin:0 0 3px}
+  .ptitle{font-size:12.5px;color:var(--accent);margin:0 0 14px;letter-spacing:.02em}
+  .pbio{font-size:13.5px;color:var(--ink-2);margin:0 0 16px}
+  .psec{margin-top:16px;padding-top:14px;border-top:1px solid var(--line-2)}
+  .psec h4{
+    font-size:11px;letter-spacing:.14em;color:var(--ink-3);
+    margin:0 0 9px;font-weight:600;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:12px;color:var(--ink-2);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 8px}
+  .rows{font-size:13px}
+  .rows div{display:flex;gap:8px;padding:3px 0;color:var(--ink-2)}
+  .rows span:first-child{color:var(--ink-3);flex:0 0 46px}
+  .rows a{border-bottom:1px solid var(--line);transition:border-color .15s}
+  .rows a:hover{border-color:var(--accent);color:var(--accent)}
+  .stat{display:flex;gap:18px;margin-top:4px}
+  .stat div{font-size:12px;color:var(--ink-3)}
+  .stat b{display:block;font-size:20px;color:var(--ink);font-weight:650;font-variant-numeric:tabular-nums}
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width:1180px){
+    .layout{grid-template-columns:minmax(0,1fr) 300px}
+    .nav{grid-column:1 / -1;position:static;margin-bottom:4px}
+    .nav-list{display:flex;flex-wrap:wrap;gap:6px}
+    .cat{width:auto;margin:0}
+    .cat .n{display:none}
+  }
+  @media (max-width:860px){
+    .layout{grid-template-columns:minmax(0,1fr);padding:22px 16px 48px;gap:20px}
+    .profile{position:static;order:-1}
+    .work-top{grid-template-columns:minmax(0,1fr)}
+    .cover{border-right:0;border-bottom:1px solid var(--line-2);min-height:130px}
+    .pcard{display:grid;grid-template-columns:78px 1fr;gap:0 16px;align-items:start}
+    .avatar{margin:0;grid-row:1 / 3}
+    .pname,.ptitle{margin-bottom:2px}
+    .pbio{grid-column:1 / -1;margin-top:12px}
+    .psec{grid-column:1 / -1}
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ============ 左侧：作品分类 ============ -->
+  <nav class="nav">
+    <h2 class="nav-title">作品分类</h2>
+    <div class="nav-list" id="cats"></div>
+  </nav>
+
+  <!-- ============ 中间：作品列表 ============ -->
+  <main>
+    <div class="head">
+      <h1 id="head-title">全部作品</h1>
+      <p id="head-desc">按分类浏览，或直接搜索关键词。</p>
+    </div>
+    <div class="searchbar">
+      <span style="color:var(--ink-3)">🔍</span>
+      <input id="q" type="search" placeholder="搜索作品名称、简介或标签…">
+      <span class="k">/</span>
+    </div>
+    <div class="crumb">
+      <h2 id="crumb-title">全部</h2>
+      <span id="crumb-count"></span>
+      <span class="d" id="crumb-desc"></span>
+    </div>
+    <section class="works" id="works"></section>
+  </main>
+
+  <!-- ============ 右侧：作者信息 ============ -->
+  <aside class="profile">
+    <div class="pcard" id="pcard"></div>
+  </aside>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =====================================================================
+     一、作者信息 —— 直接改这里的字段
+     ---------------------------------------------------------------------
+     avatar 留空字符串时会显示姓名首字；把头像图片放进 images/ 目录，
+     填 "images/avatar.jpg" 即可自动替换。
+     ===================================================================== */
+  var PROFILE = {
+    name: "张潇阳",
+    title: "网络与新媒体 · 数字内容创作",
+    avatar: "",                       // 例："images/avatar.jpg"
+    bio: "在读网络与新媒体专业，习惯把想法直接做成能打开的东西——从三维渲染、视觉设计到互动网页与视觉小说。相信作品集不是履历的延伸，而是「我能做到什么程度」的直接证据。",
+    skills: ["Blender", "Photoshop", "Premiere", "After Effects",
+             "Ren'Py", "Python", "HTML / CSS / JS", "板绘", "AI 辅助创作"],
+    contact: [
+      { k: "GitHub", v: "github.com/windirs-zxy", href: "https://github.com/windirs-zxy" }
+    ]
+  };
+
+  /* =====================================================================
+     二、作品分类 —— id 要与下面 WORKS 里每件作品的 cat 字段对应
+     ===================================================================== */
+  var CATEGORIES = [
+    { id: "modeling",   name: "建模渲染",   ico: "🧊", desc: "三维建模、材质、灯光与渲染" },
+    { id: "painting",   name: "绘画",       ico: "🎨", desc: "板绘、插画与手绘作品" },
+    { id: "graphic",    name: "平面设计",   ico: "📐", desc: "版式、字体、视觉系统与品牌" },
+    { id: "documentary",name: "纪录片",     ico: "🎬", desc: "纪实影像的拍摄与剪辑" },
+    { id: "film",       name: "微电影",     ico: "🎞️", desc: "剧情短片创作" },
+    { id: "poster",     name: "海报插图",   ico: "🖼️", desc: "海报与信息视觉" },
+    { id: "ip",         name: "IP 形象",    ico: "🐟", desc: "角色设定与吉祥物设计" },
+    { id: "ad",         name: "个人广告",   ico: "📣", desc: "广告创意与商业短片" },
+    { id: "novel",      name: "文字小说",   ico: "📖", desc: "小说、剧本与互动叙事" },
+    { id: "miniapp",    name: "小程序",     ico: "📱", desc: "小程序与网页应用" },
+    { id: "wechat",     name: "公众号",     ico: "📰", desc: "图文排版与内容运营" },
+    { id: "operation",  name: "经营账号",   ico: "📈", desc: "账号运营与数据复盘" }
+  ];
+
+  /* =====================================================================
+     三、作品数据 —— 加作品就往下复制一段改内容
+     ---------------------------------------------------------------------
+     cat        分类 id（必须是上面 CATEGORIES 里的 id）
+     title      作品名
+     year       制作时间，写 "2026.05" 这种格式
+     role       你在这件作品里的角色 / 负责环节
+     summary    一两句话的简介
+     workflow   工作流，按顺序写步骤，会渲染成带编号的流程
+     tags       标签，用于搜索与展示
+     cover      封面图路径，例 "images/donut.jpg"；留空会显示占位块
+     link       外部链接（可留空），填了会在标题后面出现"查看 ↗"
+
+     注意：带 sample: true 的是学姐先垫的示例条目，你换成真实作品后
+          把这一行删掉，"示例"标签就会消失。
+     ===================================================================== */
+  var WORKS = [
+    {
+      cat: "novel", title: "《代笔》视觉小说",
+      year: "2026.09–10", role: "编剧 / 分支结构设计 / Ren'Py 脚本实现",
+      summary: "以「AI 辅助写作」为核心机制的 Ren'Py 视觉小说：代笔写手用 AI 续写亡师遗稿。脚本约 65 KB，从 start 进入 s1–s5 五个段落，由两段 credits 收尾，配三套角色立绘、六张场景背景与七首 BGM。",
+      workflow: [
+        "定核心机制：把「AI 代笔」本身做成叙事驱动器，而不是背景设定",
+        "搭 s1–s5 五个段落的推进结构，用 credits 收尾",
+        "整理三套角色立绘与六张场景背景进 game/images",
+        "Ren'Py 脚本实现对话、选项与状态管理",
+        "打包后逐段试玩，用存档验证每段都能走通"
+      ],
+      tags: ["视觉小说", "Ren'Py", "互动叙事", "AIGC"],
+      cover: "images/daibi-cover.jpg"
+    },
+    {
+      cat: "modeling", sample: true, title: "参数化甜品研究所",
+      year: "2026.10", role: "概念 / 建模 / 材质 / 灯光 / 渲染",
+      summary: "以同一套环面几何体为基体，用 Blender Python 脚本批量生成八组糖霜配方，交付的不是八张图，而是一条可复现的视觉生成管线。",
+      workflow: [
+        "环面建模 + 细分两级，噪声置换做面团发酵起伏",
+        "复制网格后用 bmesh 剪掉下半，Shrinkwrap 吸附 + Solidify 加厚做出糖霜壳",
+        "顶点组遮罩驱动 Displace，让滴落只发生在糖霜边缘",
+        "遍历糖霜表面按面积加权撒彩针，颜色写入顶点色属性",
+        "Cycles 批量渲染，AgX 色彩管理 + OpenImageDenoise 降噪"
+      ],
+      tags: ["Blender", "Python", "程序化生成", "Cycles"], cover: ""
+    },
+    {
+      cat: "painting", sample: true, title: "夜间练习 · 人物速涂系列",
+      year: "2025.11", role: "线稿 / 上色",
+      summary: "以冷灰蓝为主调的半写实人物速涂，刻意限制调色板数量，练习在少量颜色里做出体积。",
+      workflow: ["灰阶起稿定体积", "限制五色以内的调色板铺色", "统一光源方向，压暗边缘", "局部提亮五官与手部"],
+      tags: ["板绘", "半写实", "速涂"], cover: ""
+    },
+    {
+      cat: "graphic", sample: true, title: "校园融媒体视觉系统",
+      year: "2025.09", role: "视觉规范 / 版式设计",
+      summary: "为一支校园内容团队建立视觉规范：主色与辅助色、标题字号阶梯、图文排版栅格与开头结尾模板。",
+      workflow: ["梳理现有内容的视觉问题", "确定主色与两档辅助色", "建立字号阶梯与 12 栏栅格", "输出可直接套用的版式模板"],
+      tags: ["版式", "视觉系统", "Figma", "Photoshop"], cover: ""
+    },
+    {
+      cat: "documentary", sample: true, title: "街角早餐铺",
+      year: "2025.06", role: "拍摄 / 剪辑 / 调色",
+      summary: "跟拍一间开了二十年的早餐铺一个清晨，记录手艺与人情在城市化进程里的位置。",
+      workflow: ["前期踩点与人物沟通", "清晨四点半至九点半连续跟拍", "整理素材按人物线重组叙事", "Pr 剪辑 + 声音修复 + 基础调色"],
+      tags: ["纪录片", "Premiere", "纪实"], cover: ""
+    },
+    {
+      cat: "film", sample: true, title: "《回声》微电影",
+      year: "2025.04", role: "编剧 / 导演 / 剪辑",
+      summary: "八分钟剧情短片：一个搬离老城区的人回到旧居收拾遗物，发现录音带里存着自己早已忘记的声音。",
+      workflow: ["按三幕结构写分场大纲", "实景分镜与取景确认", "两天集中拍摄", "粗剪 → 精剪 → 声音设计 → 调色"],
+      tags: ["微电影", "编剧", "导演"], cover: ""
+    },
+    {
+      cat: "poster", sample: true, title: "校园电影展主视觉",
+      year: "2025.10", role: "主视觉 / 延展物料",
+      summary: "以「胶片与窗格」为母题的电影展主视觉，同一图形系统延展到海报、票根、易拉宝与手机壁纸。",
+      workflow: ["确定母题图形与色彩策略", "主海报构图与字体实验", "延展到五种物料尺寸", "输出印刷规范与安全边距说明"],
+      tags: ["海报", "主视觉", "印刷"], cover: ""
+    },
+    {
+      cat: "ip", sample: true, title: "吉祥物「小渝」形象设定",
+      year: "2025.03", role: "角色设定 / 三视图 / 表情包",
+      summary: "为校园活动设计的水滴形吉祥物，输出三视图、八种表情与一套聊天表情包，附带配色与使用规范。",
+      workflow: ["关键词联想与草图剪影筛选", "确定造型比例与三视图", "扩展八种表情与动作", "输出表情包与使用规范文档"],
+      tags: ["IP 形象", "角色设计", "表情包"], cover: ""
+    },
+    {
+      cat: "ad", sample: true, title: "个人广告 · 三十秒自我介绍片",
+      year: "2025.12", role: "策划 / 拍摄 / 剪辑 / 动效",
+      summary: "用三十秒讲清「我是谁、我能做什么」，以三个作品快切 + 一句话自述收尾，作为投递与展示的开场。",
+      workflow: ["写三十秒脚本，一句话对应一个作品", "棚拍人物镜头 + 作品录屏", "Pr 剪辑卡点，AE 做字幕与转场", "统一字幕样式与片尾板式"],
+      tags: ["广告", "自我介绍", "AE"], cover: ""
+    },
+    {
+      cat: "novel", sample: true, title: "《代笔》视觉小说",
+      year: "2026.10", role: "编剧 / 分支设计 / 脚本实现",
+      summary: "以「AI 辅助写作」为核心机制的互动叙事作品：代笔写手用 AI 续写亡师遗稿，却发现 AI 索引了自己五年不敢保存的私人文件夹。含 5 个结局、3 个分支点。",
+      workflow: ["核心命题与三层嵌套叙事结构设计", "分支点设计与五个结局的落点推演", "逐句对话文案与人物侧写", "AI 立绘与背景的筛选与二次修改", "Ren'Py 脚本实现约 800 行并打包导出"],
+      tags: ["视觉小说", "Ren'Py", "互动叙事", "AIGC"], cover: ""
+    },
+    {
+      cat: "miniapp", sample: true, title: "像素里的伦理课",
+      year: "2026.10", role: "交互设计 / 前端实现 / 内容编写",
+      summary: "面向新闻传播学生的伦理判断训练工具：六个真实情境、每个三道判断、即时给出后果推演与依据方向，单文件可离线运行。",
+      workflow: ["调研高频伦理失范情境", "设计「看似合理实则危险」的干扰项", "原生 JS 实现单页交互与评分逻辑", "对照课程讲义复核全部案例表述"],
+      tags: ["HTML", "JavaScript", "教育科普", "离线可用"], cover: ""
+    },
+    {
+      cat: "wechat", sample: true, title: "校园人物专栏 · 图文排版",
+      year: "2025.05", role: "采访 / 撰稿 / 排版",
+      summary: "连载十期的人物专栏，统一开头引语格式、段间距与图片比例，把长文阅读体验做顺。",
+      workflow: ["确定栏目视觉规范与开头格式", "采访提纲与成稿", "按规范排版并统一图片比例", "发布后统计阅读完成率并迭代版式"],
+      tags: ["公众号", "排版", "采写"], cover: ""
+    },
+    {
+      cat: "operation", sample: true, title: "校园账号从 0 到 1 运营复盘",
+      year: "2025.07", role: "内容策划 / 数据复盘",
+      summary: "接手一个新账号，用三个月把粉丝从零做到四位数，沉淀出一套选题与发布节奏的复盘文档。",
+      workflow: ["竞品与受众分析，确定内容方向", "建立选题库与周更排期", "每期记录完播率、互动率与涨粉数", "按数据反馈调整选题配比与发布时间"],
+      tags: ["账号运营", "数据分析", "内容策划"], cover: ""
+    }
+  ];
+
+  /* ===================== 以下为渲染逻辑，通常不用改 ===================== */
+  var state = { cat: "all", q: "" };
+  var $ = function(id){ return document.getElementById(id); };
+
+  function byId(id){
+    for (var i = 0; i < CATEGORIES.length; i++){
+      if (CATEGORIES[i].id === id) return CATEGORIES[i];
+    }
+    return null;
+  }
+
+  function esc(s){
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function counts(){
+    var m = {};
+    WORKS.forEach(function(w){ m[w.cat] = (m[w.cat] || 0) + 1; });
+    return m;
+  }
+
+  function renderNav(){
+    var c = counts();
+    var html = '<button class="cat' + (state.cat === "all" ? " on" : "") + '" data-cat="all">' +
+               '<span class="ico">🗂️</span><span class="nm">全部作品</span>' +
+               '<span class="n">' + WORKS.length + '</span></button>';
+    CATEGORIES.forEach(function(k){
+      html += '<button class="cat' + (state.cat === k.id ? " on" : "") + '" data-cat="' + k.id + '">' +
+              '<span class="ico">' + k.ico + '</span><span class="nm">' + esc(k.name) + '</span>' +
+              '<span class="n">' + (c[k.id] || 0) + '</span></button>';
+    });
+    $("cats").innerHTML = html;
+    Array.prototype.forEach.call($("cats").querySelectorAll(".cat"), function(b){
+      b.onclick = function(){ state.cat = b.getAttribute("data-cat"); render(); };
+    });
+  }
+
+  function match(w){
+    if (state.cat !== "all" && w.cat !== state.cat) return false;
+    if (!state.q) return true;
+    var hay = [w.title, w.summary, w.year, w.role,
+               (w.tags || []).join(" "),
+               (byId(w.cat) ? byId(w.cat).name : ""),
+               (w.workflow || []).join(" ")].join(" ").toLowerCase();
+    return hay.indexOf(state.q.toLowerCase()) >= 0;
+  }
+
+  function coverHTML(w){
+    var k = byId(w.cat);
+    // 占位块在下层，图片盖在上层；图片加载失败就把自己移除，占位块自然露出来。
+    // 这样避免在 onerror 里拼字符串（作品名含引号时会破坏 HTML）。
+    var ph = '<div class="ph"><b>' + esc(w.title) + '</b>' +
+             (k ? esc(k.name) : "") + '<br>' +
+             (w.cover ? "封面加载失败，检查 cover 路径" : "封面占位 · 图片放进 images/ 后填 cover 字段") +
+             '</div>';
+    var img = w.cover
+      ? '<img src="' + esc(w.cover) + '" alt="' + esc(w.title) + '" onerror="this.remove()">'
+      : '';
+    return '<div class="cover">' + ph + img + '</div>';
+  }
+
+  function workHTML(w){
+    var k = byId(w.cat);
+    var steps = (w.workflow || []).map(function(s){ return "<li>" + esc(s) + "</li>"; }).join("");
+    return '' +
+      '<article class="work">' +
+        '<div class="work-top">' +
+          coverHTML(w) +
+          '<div class="work-body">' +
+            '<h3>' + esc(w.title) +
+              (w.sample ? '<span class="badge">示例</span>' : '') +
+              (k ? '<span class="badge cat">' + esc(k.name) + '</span>' : '') +
+              (w.link ? ' <a class="badge" href="' + esc(w.link) + '" target="_blank" rel="noopener">查看 ↗</a>' : '') +
+            '</h3>' +
+            '<p class="summary">' + esc(w.summary) + '</p>' +
+            '<div class="metas">' +
+              '<span><b>制作时间</b> ' + esc(w.year) + '</span>' +
+              '<span><b>参与环节</b> ' + esc(w.role) + '</span>' +
+            '</div>' +
+            '<div class="tags">' + (w.tags || []).map(function(t){
+              return '<span class="tag">' + esc(t) + '</span>'; }).join("") + '</div>' +
+            (steps ? '<div class="flow"><div class="flow-h">工作流</div><ol class="steps">' + steps + '</ol></div>' : '') +
+          '</div>' +
+        '</div>' +
+      '</article>';
+  }
+
+  function render(){
+    renderNav();
+    var list = WORKS.filter(match);
+    var k = byId(state.cat);
+
+    $("head-title").textContent = state.q ? "搜索结果" :
+      (state.cat === "all" ? "全部作品" : (k ? k.name : "作品"));
+    $("head-desc").textContent = state.q ? ("关键词：" + state.q) :
+      (state.cat === "all" ? "按分类浏览，或直接搜索关键词。" :
+       (k ? k.desc : ""));
+
+    $("crumb-title").textContent = k ? k.name : "全部";
+    $("crumb-count").textContent = list.length + " 件";
+    $("crumb-desc").textContent = k ? "· " + k.desc : "";
+
+    $("works").innerHTML = list.length
+      ? list.map(workHTML).join("")
+      : '<div class="empty">这个分类下还没有作品。<br>在源码的 WORKS 数组里添加一条，把 cat 设为「' +
+        esc(state.cat) + '」即可。</div>';
+  }
+
+  function renderProfile(){
+    var av = PROFILE.avatar
+      ? '<img src="' + esc(PROFILE.avatar) + '" alt="' + esc(PROFILE.name) +
+        '" onerror="this.remove()">'
+      : esc(PROFILE.name.slice(0, 1));
+    var rows = (PROFILE.contact || []).map(function(c){
+      var v = c.href ? '<a href="' + esc(c.href) + '" target="_blank" rel="noopener">' + esc(c.v) + '</a>'
+                     : esc(c.v);
+      return '<div><span>' + esc(c.k) + '</span><span>' + v + '</span></div>';
+    }).join("");
+    var chips = (PROFILE.skills || []).map(function(s){
+      return '<span class="chip">' + esc(s) + '</span>'; }).join("");
+    var used = CATEGORIES.filter(function(k){ return counts()[k.id]; }).length;
+
+    $("pcard").innerHTML =
+      '<div class="avatar">' + av + '</div>' +
+      '<h3 class="pname">' + esc(PROFILE.name) + '</h3>' +
+      '<p class="ptitle">' + esc(PROFILE.title) + '</p>' +
+      '<p class="pbio">' + esc(PROFILE.bio) + '</p>' +
+      '<div class="stat">' +
+        '<div><b>' + WORKS.length + '</b>件作品</div>' +
+        '<div><b>' + used + '</b>个分类</div>' +
+      '</div>' +
+      '<div class="psec"><h4>技能</h4><div class="chips">' + chips + '</div></div>' +
+      '<div class="psec"><h4>联系</h4><div class="rows">' + rows + '</div></div>';
+  }
+
+  var q = $("q");
+  q.oninput = function(){ state.q = q.value.trim(); render(); };
+  document.addEventListener("keydown", function(e){
+    if (e.key === "/" && document.activeElement !== q){ e.preventDefault(); q.focus(); }
+    if (e.key === "Escape" && document.activeElement === q){ q.value = ""; state.q = ""; q.blur(); render(); }
+  });
+
+  renderProfile();
+  render();
+})();
+</script>
+</body>
+</html>
