@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>作品集 · 张潇阳</title>
+<title>作品集 for windirs-zxy </title>
 <style>
   :root{
     --bg:#f4f2ee;
@@ -124,7 +124,8 @@
   .crumb span{font-size:12.5px;color:var(--ink3)}
 
   /* 作品卡片 */
-  .works{display:grid;gap:14px}
+  .works{display:grid;gap:14px;transition:opacity .24s ease,transform .24s ease}
+  .works.fading{opacity:0;transform:translateY(-16px)}
   .work{
     display:grid;grid-template-columns:232px minmax(0,1fr);
     background:var(--panel);border:1px solid var(--line);
@@ -308,7 +309,7 @@
 
 <div class="intro" id="intro">
   <div class="intro-stage" id="introStage">
-    <div class="intro-kicker">PORTFOLIO · 2026</div>
+    <div class="intro-kicker">PORTFOLIO FOR ZXY</div>
     <h1 class="intro-name" id="introName">张潇阳</h1>
     <div class="intro-rule"></div>
     <p class="intro-sub">网络与新媒体 · 数字内容创作</p>
@@ -336,7 +337,7 @@
 
     <section class="works" id="works"></section>
 
-    <footer class="foot">张潇阳 · 个人作品集 · 2026</footer>
+    <footer class="foot">张潇阳 · 个人作品集</footer>
   </main>
 
   <aside class="profile" id="profile"></aside>
@@ -360,7 +361,7 @@
 var PROFILE = {
     name: "windirs-zxy",
     title: "独立数字内容创作",
-    avatar: "images/avatar.jpg",                       // 例："images/avatar.jpg"
+    avatar: "images/avatar.jpg",                       
     bio: "网络与新媒体专业在读，习惯把想法直接做成能打开的东西。目前正在不断学习，相信作品集不是履历的延伸，而是「我能做到什么程度」的证据。",
     skills: ["Blender", "Photoshop", "Premiere", "After Effects",
              "Ren'Py", "Python", "HTML / CSS / JS", "板绘", "AI 辅助创作"],
@@ -557,7 +558,14 @@ function renderProfile(){
 }
 
 /* ---------- 分类导航 ---------- */
+var catsBuilt = false;
 function renderCats(){
+  if (catsBuilt) {
+    Array.prototype.forEach.call($("cats").querySelectorAll(".cat"), function(b){
+      b.classList.toggle("on", b.getAttribute("data-cat") === state.cat);
+    });
+    return;
+  }
   var c = counts();
   var html = '<button class="cat' + (state.cat === "all" ? " on" : "") +
     '" data-cat="all" style="--d:0ms"><span class="ico">🗂️</span>' +
@@ -569,8 +577,9 @@ function renderCats(){
       '<span class="n">' + (c[k.id] || 0) + '</span></button>';
   });
   $("cats").innerHTML = html;
+  catsBuilt = true;
   Array.prototype.forEach.call($("cats").querySelectorAll(".cat"), function(b){
-    b.onclick = function(){ state.cat = b.getAttribute("data-cat"); renderCats(); renderWorks(); };
+    b.onclick = function(){ state.cat = b.getAttribute("data-cat"); renderCats(); renderWorks(true); };
   });
 }
 
@@ -607,7 +616,7 @@ function cardHTML(w, i){
     '</article>';
 }
 
-function renderWorks(){
+function renderWorks(animate){
   var list = WORKS.filter(match);
   var k = byId(state.cat);
   $("crumbTitle").textContent = state.q ? "搜索结果" :
@@ -615,17 +624,27 @@ function renderWorks(){
   $("crumbMeta").textContent = "共 " + list.length + " 件" +
     (k && !state.q ? " · " + k.desc : "");
 
-  $("works").innerHTML = list.length
-    ? list.map(function(w){ return cardHTML(w, WORKS.indexOf(w)); }).join("")
-    : '<div class="empty">这个分类下还没有作品。</div>';
+  var panel = $("works");
+  var paint = function(){
+    panel.innerHTML = list.length
+      ? list.map(function(w){ return cardHTML(w, WORKS.indexOf(w)); }).join("")
+      : '<div class="empty">这个分类下还没有作品。</div>';
+    Array.prototype.forEach.call(panel.querySelectorAll(".work"), function(el){
+      var open = function(){ openDetail(parseInt(el.getAttribute("data-i"), 10)); };
+      el.onclick = open;
+      el.onkeydown = function(e){
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+      };
+    });
+    panel.classList.remove("fading");
+  };
 
-  Array.prototype.forEach.call($("works").querySelectorAll(".work"), function(el){
-    var open = function(){ openDetail(parseInt(el.getAttribute("data-i"), 10)); };
-    el.onclick = open;
-    el.onkeydown = function(e){
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
-    };
-  });
+  if (animate && panel.children.length){
+    panel.classList.add("fading");
+    setTimeout(paint, 240);
+  } else {
+    paint();
+  }
 }
 
 /* ---------- 详情弹层 ---------- */
