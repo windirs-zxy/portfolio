@@ -272,7 +272,9 @@
     skills: ["Blender", "Photoshop", "Premiere", "After Effects",
              "Ren'Py", "Python", "HTML / CSS / JS", "板绘", "AI 辅助创作"],
     contact: [
-      { k: "GitHub", v: "github.com/windirs-zxy", href: "https://github.com/windirs-zxy" }
+      { k: "GitHub", v: "github.com/windirs-zxy", href: "https://github.com/windirs-zxy" },
+      { k: "QQ",   v: "" },
+      { k: "邮箱", v: "" }
     ]
   };
 
@@ -291,7 +293,8 @@
     { id: "novel",      name: "文字小说",   ico: "📖", desc: "小说、剧本与互动叙事" },
     { id: "miniapp",    name: "小程序",     ico: "📱", desc: "小程序与网页应用" },
     { id: "wechat",     name: "公众号",     ico: "📰", desc: "图文排版与内容运营" },
-    { id: "operation",  name: "经营账号",   ico: "📈", desc: "账号运营与数据复盘" }
+    { id: "operation",  name: "经营账号",   ico: "📈", desc: "账号运营与数据复盘" },
+    { id: "tool",       name: "自造工具",   ico: "🔧", desc: "为自己的创作造的工具" }
   ];
 
   /* =====================================================================
@@ -326,17 +329,17 @@
       cover: "images/daibi-cover.jpg"
     },
     {
-      cat: "modeling", sample: true, title: "参数化甜品研究所",
-      year: "2026.10", role: "概念 / 建模 / 材质 / 灯光 / 渲染",
-      summary: "以同一套环面几何体为基体，用 Blender Python 脚本批量生成八组糖霜配方，交付的不是八张图，而是一条可复现的视觉生成管线。",
+      cat: "modeling", title: "参数化甜品研究所",
+      year: "2026.10", role: "脚本编写 / 建模 / 材质 / 渲染",
+      summary: "用 Blender Python 脚本程序化搭建甜品场景：几何、材质与灯光都由脚本定义，工程存为 .blend，配两套渲染命令分别出预览与终稿。",
       workflow: [
-        "环面建模 + 细分两级，噪声置换做面团发酵起伏",
-        "复制网格后用 bmesh 剪掉下半，Shrinkwrap 吸附 + Solidify 加厚做出糖霜壳",
-        "顶点组遮罩驱动 Displace，让滴落只发生在糖霜边缘",
-        "遍历糖霜表面按面积加权撒彩针，颜色写入顶点色属性",
-        "Cycles 批量渲染，AgX 色彩管理 + OpenImageDenoise 降噪"
+        "定方案：用脚本生成整套场景，而不是手工摆模型，保证改参数就能重跑",
+        "编写 dessert_studio.py（约 23 KB）定义几何、材质与灯光",
+        "保存工程为 donut.blend，渲染预览图检查效果",
+        "用 render_preview.cmd / render_final.cmd 分别跑预览与终稿渲染"
       ],
-      tags: ["Blender", "Python", "程序化生成", "Cycles"], cover: ""
+      tags: ["Blender", "Python", "程序化生成", "Cycles"],
+      cover: "images/donut-cover.jpg"
     },
     {
       cat: "painting", sample: true, title: "夜间练习 · 人物速涂系列",
@@ -388,18 +391,32 @@
       tags: ["广告", "自我介绍", "AE"], cover: ""
     },
     {
-      cat: "novel", sample: true, title: "《代笔》视觉小说",
-      year: "2026.10", role: "编剧 / 分支设计 / 脚本实现",
-      summary: "以「AI 辅助写作」为核心机制的互动叙事作品：代笔写手用 AI 续写亡师遗稿，却发现 AI 索引了自己五年不敢保存的私人文件夹。含 5 个结局、3 个分支点。",
-      workflow: ["核心命题与三层嵌套叙事结构设计", "分支点设计与五个结局的落点推演", "逐句对话文案与人物侧写", "AI 立绘与背景的筛选与二次修改", "Ren'Py 脚本实现约 800 行并打包导出"],
-      tags: ["视觉小说", "Ren'Py", "互动叙事", "AIGC"], cover: ""
+      cat: "miniapp", title: "像素里的伦理课",
+      year: "2026.10", role: "交互设计 / 前端实现 / 内容编写",
+      summary: "面向新闻传播学生的伦理判断训练工具：六个类型化情境、每个三道判断、即时反馈后果推演与依据方向，单文件、无联网、可离线运行。成品源码尚待重建，现有设计文档与交互截图。",
+      workflow: [
+        "调研新闻实践中反复出现的伦理困境类型",
+        "设计「看似合理实则危险」的干扰项，让错误选择有说服力",
+        "用原生 JS 实现单页交互、进度与评分逻辑",
+        "对照课程讲义复核全部案例表述，只写依据方向不引条文"
+      ],
+      tags: ["HTML", "JavaScript", "教育科普", "离线可用"],
+      cover: "images/ethics-cover.jpg"
     },
     {
-      cat: "miniapp", sample: true, title: "像素里的伦理课",
-      year: "2026.10", role: "交互设计 / 前端实现 / 内容编写",
-      summary: "面向新闻传播学生的伦理判断训练工具：六个真实情境、每个三道判断、即时给出后果推演与依据方向，单文件可离线运行。",
-      workflow: ["调研高频伦理失范情境", "设计「看似合理实则危险」的干扰项", "原生 JS 实现单页交互与评分逻辑", "对照课程讲义复核全部案例表述"],
-      tags: ["HTML", "JavaScript", "教育科普", "离线可用"], cover: ""
+      cat: "tool", title: "Ren'Py 分支自检器",
+      year: "2026.10", role: "设计 / 实现 / 测试",
+      summary: "给 Ren'Py 视觉小说用的静态检查工具：扫一遍 .rpy，报出断链、孤立标签、重复定义和动态跳转数量，支持 --json 与 --html 报告，单文件无第三方依赖。",
+      workflow: [
+        "从自己的《代笔》里发现痛点：改错一个跳转要跑到那一幕才报错",
+        "用正则抓 label 定义与 jump/call 引用，两个集合做差集",
+        "用「标签必须顶格」区分剧本标签与 screen 控件，修掉假阳性",
+        "加 --json / --ignore / --html 报告与退出码，能接进流水线",
+        "用故意写坏的样本验证报警，用真实项目验证安静"
+      ],
+      tags: ["Python", "静态分析", "Ren'Py", "开发工具"],
+      cover: "",
+      link: "https://github.com/windirs-zxy/renpy-checker"
     },
     {
       cat: "wechat", sample: true, title: "校园人物专栏 · 图文排版",
@@ -532,7 +549,7 @@
       ? '<img src="' + esc(PROFILE.avatar) + '" alt="' + esc(PROFILE.name) +
         '" onerror="this.remove()">'
       : esc(PROFILE.name.slice(0, 1));
-    var rows = (PROFILE.contact || []).map(function(c){
+    var rows = (PROFILE.contact || []).filter(function(c){ return c.v; }).map(function(c){
       var v = c.href ? '<a href="' + esc(c.href) + '" target="_blank" rel="noopener">' + esc(c.v) + '</a>'
                      : esc(c.v);
       return '<div><span>' + esc(c.k) + '</span><span>' + v + '</span></div>';
