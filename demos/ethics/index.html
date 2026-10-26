@@ -1,0 +1,454 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>像素里的伦理课 · 新闻伦理互动案例站</title>
+<style>
+  :root{
+    --ink:#1b1a18;
+    --ink-2:#4a4741;
+    --paper:#f6f3ec;
+    --paper-2:#fffdf8;
+    --line:#dcd6c8;
+    --accent:#a8341f;
+    --ok:#2f6d4f;
+    --warn:#9a6b12;
+    --bad:#a8341f;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px}
+  header{background:var(--ink);color:var(--paper);padding:34px 0 28px}
+  header h1{margin:0 0 8px;font-size:30px;letter-spacing:.06em}
+  header .sub{color:#c9c2b2;font-size:14px;letter-spacing:.02em}
+  header .rule{height:3px;background:var(--accent);width:76px;margin:16px 0 0}
+  .meta-bar{
+    display:flex;flex-wrap:wrap;gap:8px 18px;
+    font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;
+    font-size:12.5px;color:var(--ink-2);padding:14px 0;border-bottom:1px solid var(--line);
+  }
+  main{padding:26px 0 60px}
+  h2{font-size:21px;margin:34px 0 12px;padding-left:12px;border-left:4px solid var(--accent)}
+  h3{font-size:16px;margin:22px 0 8px}
+  p{margin:10px 0}
+  .card{
+    background:var(--paper-2);border:1px solid var(--line);
+    border-radius:2px;padding:22px 24px;margin:18px 0;
+    box-shadow:0 1px 0 rgba(0,0,0,.03);
+  }
+  .kicker{
+    font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;
+    font-size:12px;letter-spacing:.18em;color:var(--accent);text-transform:uppercase
+  }
+  .situation{font-size:17px}
+  .options{display:grid;gap:12px;margin-top:18px}
+  button.opt{
+    text-align:left;background:var(--paper-2);border:1px solid var(--line);
+    border-radius:2px;padding:14px 16px;font:inherit;font-size:15.5px;color:var(--ink);
+    cursor:pointer;transition:.15s;display:flex;gap:12px;align-items:flex-start
+  }
+  button.opt:hover{border-color:var(--accent);transform:translateX(3px)}
+  button.opt .tag{
+    flex:0 0 auto;font-family:system-ui,sans-serif;font-size:12px;
+    background:#eee8db;color:var(--ink-2);border-radius:2px;padding:2px 7px;margin-top:2px
+  }
+  .result{margin-top:18px;border-left:4px solid var(--warn);padding:14px 16px;background:#fdf9ee}
+  .result.good{border-color:var(--ok);background:#f1f7f2}
+  .result.bad{border-color:var(--bad);background:#fdf1ee}
+  .result .verdict{font-weight:700;font-size:16px;margin-bottom:6px}
+  .result ul{margin:8px 0 0 18px;padding:0}
+  .result li{margin:6px 0}
+  .basis{
+    font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;
+    font-size:13px;color:var(--ink-2);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)
+  }
+  .progress{display:flex;gap:6px;margin:18px 0 6px}
+  .dot{height:5px;flex:1;background:#e4ded1;border-radius:3px}
+  .dot.done{background:var(--ink)}
+  .dot.now{background:var(--accent)}
+  .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+  button.btn{
+    font:inherit;font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;
+    font-size:14px;padding:10px 20px;border-radius:2px;border:1px solid var(--ink);
+    background:var(--ink);color:var(--paper);cursor:pointer
+  }
+  button.btn.ghost{background:transparent;color:var(--ink)}
+  button.btn:hover{opacity:.86}
+  .score{
+    font-family:system-ui,sans-serif;display:flex;align-items:baseline;gap:10px;margin:6px 0 0
+  }
+  .score b{font-size:44px;line-height:1}
+  .dim{color:var(--ink-2)}
+  .toolkit{display:grid;gap:10px;margin-top:14px}
+  .tool{border-left:3px solid var(--line);padding:6px 0 6px 14px}
+  .tool b{display:block;font-size:15px}
+  .sources{font-size:14px;color:var(--ink-2)}
+  .sources li{margin:7px 0}
+  .note{
+    background:#efe9dc;border:1px solid var(--line);padding:14px 16px;font-size:14px;margin:18px 0
+  }
+  footer{border-top:1px solid var(--line);padding:22px 0 46px;font-size:13px;color:var(--ink-2)}
+  a{color:var(--accent)}
+  @media (max-width:560px){
+    header h1{font-size:23px}
+    .card{padding:18px}
+    body{font-size:15.5px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>像素里的伦理课</h1>
+    <div class="sub">六个真实场景下的新闻伦理判断训练 · 互动案例站</div>
+    <div class="rule"></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="meta-bar">
+    <span>参赛赛项：智慧教育与科普创作类</span>
+    <span>作品形式：可离线运行的互动网页</span>
+    <span>适用对象：新闻传播类专业学生 / 校园媒体从业者</span>
+  </div>
+</div>
+
+<main class="wrap" id="app"></main>
+
+<footer class="wrap">
+  <p><b>作品信息</b>　《像素里的伦理课：新闻伦理互动案例站》　·　互动案例站 · 单文件离线运行　·　智慧教育与科普创作类</p>
+  <p class="dim">本作品为教学演示用途。全部案例均为团队原创编写的类型化教学情境，取材于新闻实践中反复出现的伦理困境类型，不取自任何具体报道的原文，亦不指向任何真实事件、机构或个人。页面中涉及法律法规的表述统一为「依据方向」，为便于理解的教学简化写法，未引用条文原文，正式引用请核对法律法规与行业准则原文。本作品不含任何第三方图片、影像、音频与字体素材，未使用任何真实新闻照片或当事人信息。</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =====================================================================
+     案例数据说明 —— 教师可自行增删、改写案例，无需改动任何交互逻辑
+     ---------------------------------------------------------------------
+     每个案例就是一个对象，字段含义如下：
+       kicker     案例编号，显示在卡片顶部
+       title      案例标题
+       situation  情境描述（一段话，写清时间压力与具体处境）
+       options    三个判断选项，每个选项包含：
+                    tag      选项序号（A / B / C）
+                    text     选项正文
+                    grade    评分档位：'good' 得 2 分 / 'warn' 得 1 分 / 'bad' 得 0 分
+                    verdict  点选后显示的判断结论（一句话）
+                    points   结论下方的补充说明，字符串数组，可写多条
+                    basis    依据方向（法律法规、行业准则或学术来源）
+
+     新增一个案例：把上面的对象复制一份、改掉内容即可，数量不限，
+     顶部的进度条与结尾评分会自动按案例数量重新计算。
+     改写评分：把 grade 从 'bad' 改成 'warn' 或 'good' 即可调整该选项的分值。
+     ===================================================================== */
+  var CASES = [
+    {
+      kicker: "案例 01",
+      title: "未成年人的名字",
+      situation: "某市一名 15 岁学生涉嫌一起纵火案，警方通报中未公布姓名。你手上的稿子里有他的姓名、就读学校与班级。截稿前一小时，编辑问你：这些要不要写进去？",
+      options: [
+        { tag: "A", text: "全部写出，姓名、学校、班级都保留——细节越具体，稿子越有冲击力。",
+          grade: "bad", verdict: "这是最危险的做法。",
+          points: ["涉案未成年人的身份信息一旦公开，会带来难以撤回的二次伤害，而且这类信息在网络上几乎无法真正删除。",
+                     "即使消息已经在小范围流传，媒体公开报道仍然构成一次全新的、覆盖面更大的传播。"],
+          basis: "《中华人民共和国未成年人保护法》确立了对未成年人隐私权和个人信息的特殊保护；《中华人民共和国刑事诉讼法》对未成年人刑事案件设有不公开审理等特别程序；《中国新闻工作者职业道德准则》要求尊重和保护未成年人。" },
+        { tag: "B", text: "不写姓名、不写学校，只用「一名 15 岁男生」这样的表述。",
+          grade: "good", verdict: "这是教科书式的处理。",
+          points: ["去标识化的表述既完成了信息传达，又阻断了「顺藤摸瓜」定位到具体个人的可能。",
+                     "注意：即便是化名，如果同时给出班级、住址、家长职业等组合信息，仍然可能被识别。"],
+          basis: "最小伤害原则；《未成年人保护法》对未成年人个人信息的特殊保护要求。" },
+        { tag: "C", text: "写姓氏首字母加学校简称，让读者「自己猜」。",
+          grade: "bad", verdict: "换个写法不等于去了标识。",
+          points: ["「可识别性」才是判断标准：只要特定范围内的读者能够据此指认出具体个人，就和直接写名字没有本质区别。",
+                     "在校园这类小范围社群里，首字母加学校几乎等于实名。"],
+          basis: "《中华人民共和国个人信息保护法》对「个人信息」以可识别性为核心的界定；新闻职业道德准则中的最小伤害要求。" }
+      ]
+    },
+    {
+      kicker: "案例 02",
+      title: "遇难者的脸",
+      situation: "突发事故现场，你拍到一张照片：画面中央是遇难者清晰的面部。这张图情绪冲击力极强，是整组报道里最有力量的一张。",
+      options: [
+        { tag: "A", text: "原图发出，新闻就该有力量。",
+          grade: "bad", verdict: "力量不能以尊严为代价。",
+          points: ["遇难者及其家属并未同意这种形式的公开，且此刻他们可能还没有接到通知。",
+                     "原图传播会让家属在毫无准备的情况下看到亲人遇难的画面，这是最典型的二次伤害。"],
+          basis: "《中国新闻工作者职业道德准则》要求尊重受访者、避免伤害；灾难报道中的最小伤害原则。" },
+        { tag: "B", text: "保留画面但做处理：避开可辨识面部，改用远景、剪影或背影。",
+          grade: "good", verdict: "专业上最常用的折中方案。",
+          points: ["既保住了现场感与信息量，又守住了当事人尊严这条底线。",
+                     "处理时要一并注意家属的面孔和可辨识的随身物品。"],
+          basis: "最小伤害原则；新闻摄影伦理中的知情同意与隐私保护要求。" },
+        { tag: "C", text: "不发这张图，只发文字与现场远景。",
+          grade: "good", verdict: "同样成立，而且更保守。",
+          points: ["不少媒体机构的内部规范本就要求灾难现场不出现遗体画面，这是行业里成熟的自我约束。",
+                     "选择 C 不代表怯懦，它只是把「报道价值」和「伤害风险」放在了天平上重新称过。"],
+          basis: "最小伤害原则；部分媒体机构的灾难报道内部规范。" }
+      ]
+    },
+    {
+      kicker: "案例 03",
+      title: "「疑似当事人」的人肉信息",
+      situation: "一起社会热点事件中，网友扒出「疑似当事人」的姓名、工作单位、手机号，群里正在疯狂转发。你的选题正好是这个事件。",
+      options: [
+        { tag: "A", text: "转发这些信息，加上「网传」两个字就安全了。",
+          grade: "bad", verdict: "「网传」不是免责声明。",
+          points: ["未经核实就扩散他人个人信息，可能构成对隐私权和个人信息权益的侵害。",
+                     "后续一旦证实被指认者与事件无关，造成的伤害几乎无法弥补，而报道方要承担相应责任。"],
+          basis: "《中华人民共和国民法典》人格权编关于隐私权与个人信息保护的规定；《中华人民共和国个人信息保护法》。" },
+        { tag: "B", text: "不传播任何个人信息，只报道可以核实的事实；如果情况紧急，移交警方处理。",
+          grade: "good", verdict: "这是唯一稳妥的选择。",
+          points: ["核实义务是新闻工作的底线，同时也是对报道方自身的保护。",
+                     "如果已经出现明显的违法侵害迹象，及时联系平台删除或报警，比转发更有意义。"],
+          basis: "《中国新闻工作者职业道德准则》关于核实事实、不传播未经证实信息的要求；《个人信息保护法》。" },
+        { tag: "C", text: "用「疑似」两个字打头，转载但加个问号。",
+          grade: "bad", verdict: "加问号改变不了传播的实质。",
+          points: ["「疑似」在法律和伦理上都不构成豁免，反而说明传播者明知信息未经核实。",
+                     "对被指认者来说，被点名就是被点名，问号阻挡不了人肉。"],
+          basis: "《民法典》人格权编相关条款；新闻职业道德准则中的核实要求。" }
+      ]
+    },
+    {
+      kicker: "案例 04",
+      title: "AI 生成的现场图",
+      situation: "你要发一篇城市内涝的报道，手上没有现场照片。同事用 AI 生成了一张非常逼真的积水街道图，画幅、光影都像真照片。",
+      options: [
+        { tag: "A", text: "直接当新闻配图，读者看不出来。",
+          grade: "bad", verdict: "这一条会直接击穿新闻的底线。",
+          points: ["生成内容冒充新闻事实，属于对受众的欺骗，也是对新闻真实性原则的根本违背。",
+                     "一旦被发现，损失的不是这一篇稿子，而是整个机构的公信力。"],
+          basis: "《人工智能生成合成内容标识办法》确立的生成内容标识义务；新闻真实性原则与职业道德准则中不得虚构的要求。" },
+        { tag: "B", text: "加上「AI 生成示意图」的标识，并在正文中说明。",
+          grade: "warn", verdict: "合规了，但仍有误读风险。",
+          points: ["标识义务已完成，这一步是必须的。",
+                     "但过度逼真的画面仍然会让快速滑动的读者把它当成真实现场，建议再补一层视觉区分。"],
+          basis: "《人工智能生成合成内容标识办法》；新闻职业道德准则中的真实性与披露要求。" },
+        { tag: "C", text: "改成明显非写实的插画式示意图，并标注「示意图 · AI 辅助生成」。",
+          grade: "good", verdict: "最稳妥的处理。",
+          points: ["视觉上的「一眼可辨」比一行小字更有效，从形式上杜绝了误读。",
+                     "这类做法已经在不少媒体可视化栏目里成为常规操作，值得直接借鉴。"],
+          basis: "《人工智能生成合成内容标识办法》；新闻可视化实践中的真实性保障要求。" }
+      ]
+    },
+    {
+      kicker: "案例 05",
+      title: "受访者的反悔",
+      situation: "发稿前夜，一位家暴受害受访者联系你：她希望撤下自己的姓名和具体细节，担心被对方找到。她此前已经签过同意书，采访录音也都在。",
+      options: [
+        { tag: "A", text: "按原稿发。她同意过，也有录音，程序上没有瑕疵。",
+          grade: "bad", verdict: "程序合规不等于伦理合规。",
+          points: ["知情同意是一个持续的过程，而不是一次性的签字。当事人有权在发稿前改变主意。",
+                     "在这类案例里，报道发布带来的安全风险是真实存在的，不能用「她早该想到」来消解。"],
+          basis: "最小伤害原则；新闻职业道德准则中尊重受访者意愿的要求；《民法典》隐私权相关规定。" },
+        { tag: "B", text: "尊重她的意愿，删除可识别信息；如果删掉后报道无法成立，就延后或不发。",
+          grade: "good", verdict: "把人的安全放在点击量之前。",
+          points: ["有些选题只能放弃，这也是新闻伦理的一部分。",
+                     "可以和她一起讨论有没有既能保护她又成立的角度，但最终决定权在她。"],
+          basis: "最小伤害原则；知情同意的持续有效性；新闻职业道德准则相关要求。" },
+        { tag: "C", text: "模糊处理，但把最终版本逐句发给她确认后再发。",
+          grade: "good", verdict: "折中且负责的做法。",
+          points: ["让受访者参与最终审阅，是降低伤害风险的行之有效的手段。",
+                     "要点在于「确认」必须是实质性的——她有权叫停任何她不适的细节。"],
+          basis: "知情同意原则；最小伤害原则。" }
+      ]
+    },
+    {
+      kicker: "案例 06",
+      title: "轻生事件的细节",
+      situation: "某高校发生学生轻生事件，你拿到了具体的方式、时间和地点。编辑希望你写一篇有反思深度的稿子。",
+      options: [
+        { tag: "A", text: "把方式、地点、时间都写清楚，细节越完整越有说服力。",
+          grade: "bad", verdict: "细节越具体，模仿风险越高。",
+          points: ["对轻生方式的细致描写与「模仿效应」（常被称为维特效应）之间的关联，已有大量研究支持。",
+                     "把地点精确到某栋楼、某个时间点，还会给校园里的其他人带来持续的创伤刺激。"],
+          basis: "世界卫生组织《预防自杀：供媒体工作者参考》中的报道建议；新闻职业道德准则中避免伤害的要求。" },
+        { tag: "B", text: "不写具体方式、不写精确地点、不出现现场图，并在文末附心理援助渠道。",
+          grade: "good", verdict: "标准做法。",
+          points: ["报道的重点应当放在「如何识别求助信号」「有哪些支持资源」，而不是事件本身的血腥度。",
+                     "附上求助热线与校内心理咨询渠道，是这类报道最有实际价值的部分。"],
+          basis: "世界卫生组织媒体自杀报道指南；高校心理健康教育与危机干预的相关要求。" },
+        { tag: "C", text: "文字模糊成「该校一教学楼内」，但配一张现场照片。",
+          grade: "bad", verdict: "文字退了一步，画面又冲上去了。",
+          points: ["照片会泄露文字刻意隐去的信息，等于绕开了自己刚刚设下的防线。",
+                     "现场照片对同校学生的冲击远大于文字描述。"],
+          basis: "世界卫生组织媒体自杀报道指南；最小伤害原则。" }
+      ]
+    }
+  ];
+
+  var TOOLKIT = [
+    ["最小伤害", "报道带来的伤害，是否已经小于它带来的公共利益？"],
+    ["可识别性", "换名字、打码、写首字母，是否真的让人指认不出当事人？"],
+    ["持续同意", "知情同意是过程，不是签字那一刻；当事人随时可以反悔。"],
+    ["核实义务", "未经核实的信息不传播，转发键比想象中重。"],
+    ["标识生成内容", "AI 生成的图像、音视频与文本，必须让受众看得见地知道。"],
+    ["特殊群体加护", "未成年人、受害者、精神健康议题当事人，需要额外的谨慎。"],
+    ["附上出路", "涉及心理危机的报道，必须给出可用的求助渠道。"]
+  ];
+
+  var SOURCES = [
+    "《中华人民共和国民法典》人格权编（隐私权与个人信息保护相关规定）",
+    "《中华人民共和国个人信息保护法》（个人信息的界定与处理规则）",
+    "《中华人民共和国未成年人保护法》（未成年人隐私与个人信息特殊保护）",
+    "《中华人民共和国刑事诉讼法》（未成年人刑事案件特别程序）",
+    "《人工智能生成合成内容标识办法》（生成合成内容标识义务）",
+    "《中国新闻工作者职业道德准则》（中华全国新闻工作者协会）",
+    "世界卫生组织《预防自杀：供媒体工作者参考》",
+    "教育部等关于加强学生心理健康工作与危机干预的相关文件"
+  ];
+
+  var app = document.getElementById("app");
+  var idx = 0;
+  var score = 0;
+  var answered = false;
+
+  function el(tag, cls, html){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+
+  function progressBar(){
+    var bar = el("div", "progress");
+    for (var i = 0; i < CASES.length; i++){
+      var d = el("div", "dot");
+      if (i < idx) d.className = "dot done";
+      if (i === idx) d.className = "dot now";
+      bar.appendChild(d);
+    }
+    return bar;
+  }
+
+  function renderIntro(){
+    app.innerHTML = "";
+    var card = el("div", "card");
+    card.appendChild(el("div", "kicker", "开始之前"));
+    card.appendChild(el("h2", "", "每一次发布，都是一次判断"));
+    card.innerHTML +=
+      '<p class="situation">这里有六个情境：未成年人涉案、灾难现场、网络人肉、AI 配图、受访者反悔、轻生事件报道。' +
+      '每个情境都给你三个选项，没有一个是「显然错误」的——这正是新闻伦理最难的地方。</p>' +
+      '<p>做完六个判断，你会得到一个分数和一份原则清单。分数不重要，重要的是你能说清楚<b>为什么</b>这么选。</p>' +
+      '<p class="dim">全部内容可在断网环境下运行，不采集任何数据，不做任何联网请求。</p>' +
+      '<p class="dim">案例数据以结构化数组形式存放在本文件源码中，教师可直接增删或改写案例，无需改动交互逻辑（详见源码内注释）。</p>';
+    var actions = el("div", "actions");
+    var b = el("button", "btn", "开始判断");
+    b.onclick = function(){ idx = 0; score = 0; renderCase(); };
+    actions.appendChild(b);
+    card.appendChild(actions);
+    card.appendChild(el("div", "note",
+      "<b>免责声明：</b>全部案例均为原创编写的类型化教学情境，取材于新闻实践中反复出现的困境类型，不取自任何具体报道原文，不指向任何真实事件、机构或个人；" +
+      "涉及法律法规的表述统一为「依据方向」，为教学简化写法，未引用条文原文。"));
+    app.appendChild(card);
+    window.scrollTo(0, 0);
+  }
+
+  function renderCase(){
+    answered = false;
+    app.innerHTML = "";
+    app.appendChild(progressBar());
+    var c = CASES[idx];
+    var card = el("div", "card");
+    card.appendChild(el("div", "kicker", c.kicker + " · " + (idx + 1) + " / " + CASES.length));
+    card.appendChild(el("h2", "", c.title));
+    card.appendChild(el("p", "situation", c.situation));
+
+    var box = el("div", "options");
+    var resultBox = el("div");
+    resultBox.style.marginTop = "4px";
+
+    c.options.forEach(function(opt, i){
+      var btn = el("button", "opt");
+      btn.appendChild(el("span", "tag", opt.tag));
+      btn.appendChild(el("span", "", opt.text));
+      btn.onclick = function(){
+        if (answered) return;
+        answered = true;
+        if (opt.grade === "good") score += 2;
+        else if (opt.grade === "warn") score += 1;
+        var r = el("div", "result " + (opt.grade === "good" ? "good" : (opt.grade === "bad" ? "bad" : "")));
+        r.appendChild(el("div", "verdict", opt.tag + " · " + opt.verdict));
+        var ul = el("ul");
+        opt.points.forEach(function(p){ ul.appendChild(el("li", "", p)); });
+        r.appendChild(ul);
+        r.appendChild(el("div", "basis", "<b>依据方向：</b>" + opt.basis));
+        resultBox.innerHTML = "";
+        resultBox.appendChild(r);
+        var next = el("div", "actions");
+        var nb = el("button", "btn", idx === CASES.length - 1 ? "查看结果" : "下一个案例");
+        nb.onclick = function(){
+          if (idx === CASES.length - 1){ renderSummary(); }
+          else { idx++; renderCase(); window.scrollTo(0, 0); }
+        };
+        next.appendChild(nb);
+        resultBox.appendChild(next);
+      };
+      box.appendChild(btn);
+    });
+
+    card.appendChild(box);
+    card.appendChild(resultBox);
+    app.appendChild(card);
+    app.appendChild(resultBox);
+    window.scrollTo(0, 0);
+  }
+
+  function renderSummary(){
+    app.innerHTML = "";
+    var max = CASES.length * 2;
+    var level, comment;
+    if (score >= 11){ level = "伦理嗅觉很灵敏"; comment = "你几乎在每一个情境里都找到了伤害最小的那条路。接下来要练的是：把它写进报道流程，让它变成肌肉记忆。"; }
+    else if (score >= 8){ level = "已经有专业意识"; comment = "大多数判断是对的，但在「看起来很轻微」的那些细节上还会松手。伦理失守往往发生在最不起眼的一句描述里。"; }
+    else if (score >= 5){ level = "凭直觉在判断"; comment = "你的选择常常优先考虑传播效果。建议把下面七条原则抄下来，下次写稿前过一遍。"; }
+    else { level = "值得重新走一遍"; comment = "别急，这恰恰说明这个训练有用。回看每个案例的「依据方向」，再走一遍会完全不同。"; }
+
+    var card = el("div", "card");
+    card.appendChild(el("div", "kicker", "你的结果"));
+    card.appendChild(el("h2", "", level));
+    var sc = el("div", "score");
+    sc.appendChild(el("b", "", String(score)));
+    sc.appendChild(el("span", "dim", "/ " + max + " 分"));
+    card.appendChild(sc);
+    card.appendChild(el("p", "", comment));
+
+    card.appendChild(el("h3", "", "七条可以带走的原则"));
+    var tk = el("div", "toolkit");
+    TOOLKIT.forEach(function(t){
+      var d = el("div", "tool");
+      d.appendChild(el("b", "", t[0]));
+      d.appendChild(el("span", "dim", t[1]));
+      tk.appendChild(d);
+    });
+    card.appendChild(tk);
+
+    card.appendChild(el("h3", "", "资料来源"));
+    var ul = el("ul", "sources");
+    SOURCES.forEach(function(s){ ul.appendChild(el("li", "", s)); });
+    card.appendChild(ul);
+
+    var actions = el("div", "actions");
+    var again = el("button", "btn ghost", "再走一遍");
+    again.onclick = function(){ idx = 0; score = 0; renderCase(); };
+    actions.appendChild(again);
+    card.appendChild(actions);
+
+    app.appendChild(card);
+    window.scrollTo(0, 0);
+  }
+
+  renderIntro();
+})();
+</script>
+</body>
+</html>

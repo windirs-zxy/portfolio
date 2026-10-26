@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ren'Py 分支自检报告</title>
+<style>
+:root{
+  --bg:#f7f6f3; --panel:#ffffff; --ink:#1c1b19; --ink2:#5c5852; --ink3:#8d8880;
+  --line:#e6e2da; --accent:#b1462c; --good:#3d7a4e;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  font-size:15px;line-height:1.7;padding:40px 20px;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto}
+h1{font-size:26px;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--ink3);font-size:13px;margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.stat b{display:block;font-size:26px;line-height:1.25;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--ink3)}
+.verdict{border-radius:12px;padding:14px 18px;margin-bottom:24px;font-size:14px}
+.ok{background:#eaf3ec;border:1px solid #cfe4d5;color:var(--good)}
+.bad{background:#f6e9e4;border:1px solid #edd6cd;color:var(--accent)}
+.sec{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;margin-bottom:16px}
+.sec h2{font-size:15px;margin:0 0 12px;letter-spacing:.02em}
+.sec h2 .n{color:var(--ink3);font-weight:400;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--ink3);font-weight:500;font-size:12px}
+tr:last-child td{border-bottom:0}
+.mono{font-family:ui-monospace,Consolas,"Courier New",monospace;font-size:12.5px}
+.empty{color:var(--ink3);font-size:13px}
+footer{color:var(--ink3);font-size:12px;margin-top:28px;text-align:center}
+@media (max-width:640px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Ren'Py 分支自检报告</h1>
+  <div class="sub">扫描路径：D:\daibi · 生成时间：2026-10-25 13:57:15</div>
+
+  <div class="stats">
+    <div class="stat"><b>4</b><span>文件</span></div>
+    <div class="stat"><b>9</b><span>标签定义</span></div>
+    <div class="stat"><b>7</b><span>被引用目标</span></div>
+    <div class="stat"><b>0</b><span>动态跳转</span></div>
+  </div>
+
+  <div class="verdict ok">干净，没有发现问题。</div>
+
+  <div class="sub">文件：gui.rpy、options.rpy、screens.rpy、script.rpy</div>
+
+  <section class="sec"><h2>断链 <span class="n">(0)</span></h2><div class="empty">没有断链。</div></section>
+  <section class="sec"><h2>重复定义 <span class="n">(0)</span></h2><div class="empty">没有重复定义。</div></section>
+  <section class="sec"><h2>孤立标签 <span class="n">(0)</span></h2><div class="empty">没有孤立标签。</div></section>
+  <section class="sec"><h2>全部标签 <span class="n">(9)</span></h2><table><tr><th>标签</th><th>定义位置</th><th>被引用次数</th></tr><tr><td class="mono">before_main_menu</td><td class="mono">script.rpy:117</td><td>0</td></tr><tr><td class="mono">credits</td><td class="mono">script.rpy:2022</td><td>1</td></tr><tr><td class="mono">credits1</td><td class="mono">script.rpy:2013</td><td>4</td></tr><tr><td class="mono">s1</td><td class="mono">script.rpy:1927</td><td>2</td></tr><tr><td class="mono">s2</td><td class="mono">script.rpy:1325</td><td>1</td></tr><tr><td class="mono">s3</td><td class="mono">script.rpy:1639</td><td>1</td></tr><tr><td class="mono">s4</td><td class="mono">script.rpy:1745</td><td>1</td></tr><tr><td class="mono">s5</td><td class="mono">script.rpy:1844</td><td>1</td></tr><tr><td class="mono">start</td><td class="mono">script.rpy:122</td><td>0</td></tr></table></section>
+
+  <footer>由 renpy-checker 生成 · 静态分析，动态跳转与 screen 内跳转不参与检查</footer>
+</div>
+</body>
+</html>

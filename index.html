@@ -240,6 +240,15 @@
   .detail-grid{display:grid;grid-template-columns:1.22fr 1fr;overflow:auto}
   .detail-media{background:#141312;position:relative;min-height:360px;display:flex;align-items:center;justify-content:center}
   .detail-media img{width:100%;height:100%;object-fit:cover;max-height:440px}
+  .detail-media{flex-direction:column}
+  .d-stage{flex:1;display:flex;align-items:center;justify-content:center;background:#141312;min-height:300px;width:100%}
+  .d-stage img{max-width:100%;max-height:420px;object-fit:contain;width:auto}
+  .d-thumbs{display:flex;gap:6px;padding:10px;overflow-x:auto;background:#1b1a18;width:100%}
+  .d-thumb{width:78px;height:52px;flex:0 0 auto;border-radius:6px;overflow:hidden;border:2px solid transparent;padding:0;background:none;cursor:pointer;opacity:.6;transition:opacity .2s,border-color .2s}
+  .d-thumb.on,.d-thumb:hover{opacity:1;border-color:#b1462c}
+  .d-thumb img{width:100%;height:100%;object-fit:cover}
+  .d-link.demo{background:#b1462c;margin-left:8px}
+  .d-link.demo:hover{background:#8f3623}
   .detail-empty{color:#8b857c;text-align:center;font-size:14px;line-height:1.9;padding:40px}
   .detail-empty span{font-size:12px;color:#5c5852}
   .detail-info{padding:28px 30px 32px;overflow:auto}
@@ -400,7 +409,16 @@ var WORKS = [
       ],
       tags: ["视觉小说", "Ren'Py", "互动叙事", "AIGC"],
       cover: "images/daibi-cover.jpg",
-      link: "https://github.com/windirs-zxy/portfolio/releases/tag/daibi-v1.0.1"
+      gallery: ["images/gallery/daibi-1.jpg", "images/gallery/daibi-2.jpg", "images/gallery/daibi-3.jpg", "images/gallery/daibi-4.jpg", "images/gallery/daibi-5.jpg"],
+      link: "https://github.com/windirs-zxy/portfolio/releases/tag/daibi-v1.0.1",
+      process: [
+        "现实观察：2025 年后 AI 写作进入创作领域，创作者最常做的不是「生成」而是「删除」",
+        "核心设定：代笔写手程默用 AI 工具「续笔」续写亡师遗稿，却发现 AI 索引了他不敢保存的私人文件夹",
+        "三层嵌套：程默续写遗稿 / 续笔生成的故事 / 故事开始映射程默的现实",
+        "三个分支点，每个都让玩家面对「两个都会失去东西的选择」，没有正确答案",
+        "五个结局各有主题落点：空、孤独、虚伪、空白、共笔",
+        "script.rpy 约 800 行，Windows 打包后逐条分支实测"
+      ]
     },
     {
       cat: "modeling", title: "参数化甜品研究所",
@@ -413,7 +431,15 @@ var WORKS = [
         "用 render_preview.cmd / render_final.cmd 分别跑预览与终稿渲染"
       ],
       tags: ["Blender", "Python", "程序化生成", "Cycles"],
-      cover: "images/donut-cover.jpg"
+      cover: "images/donut-cover.jpg",
+      gallery: ["images/gallery/donut-1.jpg", "images/gallery/donut-2.jpg", "images/gallery/donut-3.jpg", "images/gallery/donut-4.jpg", "images/gallery/donut-5.jpg", "images/gallery/donut-6.jpg", "images/gallery/donut-7.jpg", "images/gallery/donut-8.jpg", "images/gallery/donut-9.jpg"],
+      process: [
+        "定方案：用 Blender Python 脚本生成整套场景，而不是手工摆模型",
+        "dessert_studio.py 定义几何、材质与灯光，改参数就能重跑",
+        "生成八组配方成图加一张系列总览，每张成图配一份 .blend 工程",
+        "Cycles 渲染，分辨率与采样数可用环境变量 DESSERT_RES / DESSERT_SAMPLES 调整",
+        "开发环境 Blender 5.2 LTS，工程兼容 4.2 以上，不依赖外部贴图与插件"
+      ]
     },
     {
       cat: "painting", sample: true, title: "夜间练习 · 人物速涂系列",
@@ -475,7 +501,16 @@ var WORKS = [
         "对照课程讲义复核全部案例表述，只写依据方向不引条文"
       ],
       tags: ["HTML", "JavaScript", "教育科普", "离线可用"],
-      cover: "images/ethics-cover.jpg"
+      cover: "images/ethics-cover.jpg",
+      gallery: ["images/gallery/ethics-1.jpg", "images/gallery/ethics-2.jpg", "images/gallery/ethics-3.jpg"],
+      demo: "demos/ethics/index.html",
+      process: [
+        "调研新闻实践中反复出现的伦理困境类型，定下六个类型化情境",
+        "每个情境设计三个判断选项，干扰项做成「看似合理实则危险」",
+        "用原生 JS 实现单页交互、进度与评分，无外部依赖、可离线运行",
+        "法规表述只写依据方向、不引条文编号，避免修订造成知识性错误",
+        "对照课程讲义复核全部案例，确认不指向真实事件与个人"
+      ]
     },
     {
       cat: "tool", title: "Ren'Py 分支自检器",
@@ -490,7 +525,15 @@ var WORKS = [
       ],
       tags: ["Python", "静态分析", "Ren'Py", "开发工具"],
       cover: "",
-      link: "https://github.com/windirs-zxy/renpy-checker"
+      demo: "demos/renpy-checker/report.html",
+      link: "https://github.com/windirs-zxy/renpy-checker",
+      process: [
+        "从自己的《代笔》里发现痛点：改错一个跳转，要跑到那一幕才报错",
+        "用正则抓 label 定义与 jump/call 引用，两个集合求差集判断断链与孤立",
+        "用「剧本标签必须顶格」区分 label 定义与 screen 控件，修掉假阳性",
+        "加 --json、--ignore、--html 报告与退出码，可直接接流水线",
+        "用故意写坏的样本验证报警，用真实项目验证安静，两侧都跑通"
+      ]
     },
     {
       cat: "wechat", sample: true, title: "校园人物专栏 · 图文排版",
@@ -654,9 +697,27 @@ function openDetail(i){
   state.idx = i;
   var k = byId(w.cat);
 
-  $("detailMedia").innerHTML = w.cover
-    ? '<img src="' + esc(w.cover) + '" alt="' + esc(w.title) + '">'
-    : '<div class="detail-empty">' + esc(w.title) + '<br><span>暂无封面图</span></div>';
+  var gal = w.gallery || [];
+  if (gal.length) {
+    var stage = '<div class="d-stage"><img id="dMain" src="' + esc(gal[0]) + '" alt="' + esc(w.title) + '"></div>';
+    var thumbs = gal.map(function(g, i){
+      return '<button class="d-thumb' + (i === 0 ? ' on' : '') + '" data-src="' + esc(g) + '"><img src="' + esc(g) + '" alt="" loading="lazy"></button>';
+    }).join("");
+    $("detailMedia").innerHTML = stage + '<div class="d-thumbs">' + thumbs + '</div>';
+    Array.prototype.forEach.call($("detailMedia").querySelectorAll(".d-thumb"), function(btn){
+      btn.onclick = function(){
+        var main = $("dMain");
+        if (main) main.src = btn.getAttribute("data-src");
+        Array.prototype.forEach.call($("detailMedia").querySelectorAll(".d-thumb"), function(b){
+          b.classList.toggle("on", b === btn);
+        });
+      };
+    });
+  } else {
+    $("detailMedia").innerHTML = w.cover
+      ? '<img src="' + esc(w.cover) + '" alt="' + esc(w.title) + '">'
+      : '<div class="detail-empty">' + esc(w.title) + '<br><span>暂无封面图</span></div>';
+  }
 
   var flow = (w.workflow || []).length
     ? '<div class="d-flow"><h4>工作流</h4><ol>' + w.workflow.map(function(s){
@@ -675,6 +736,11 @@ function openDetail(i){
     '<div class="d-tags">' + (w.tags || []).map(function(t){
       return '<span class="tag">' + esc(t) + '</span>'; }).join("") + '</div>' +
     flow +
+    (w.process && w.process.length
+      ? '<div class="d-flow" style="margin-top:22px"><h4>创作过程</h4><ol>' + w.process.map(function(s){
+          return '<li>' + esc(s) + '</li>'; }).join("") + '</ol></div>'
+      : '') +
+    (w.demo ? '<a class="d-link demo" href="' + esc(w.demo) + '" target="_blank" rel="noopener">在线试玩 ↗</a>' : '') +
     (w.link ? '<a class="d-link" href="' + esc(w.link) + '" target="_blank" rel="noopener">查看作品 ↗</a>' : '') +
     '<div class="d-nav">' +
       '<button id="dPrev">← 上一个</button>' +
