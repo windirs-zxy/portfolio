@@ -243,6 +243,8 @@
   .detail-media{flex-direction:column}
   .d-stage{flex:1;display:flex;align-items:center;justify-content:center;background:#141312;min-height:300px;width:100%}
   .d-stage img{max-width:100%;max-height:420px;object-fit:contain;width:auto}
+  .d-cap{padding:11px 15px;background:#141312;color:#c9c3b8;font-size:12px;line-height:1.65;min-height:46px;border-top:1px solid #2a2825;width:100%}
+  .d-cap b{display:block;color:#fff;font-size:13px;font-weight:600;margin-bottom:3px;letter-spacing:.02em}
   .d-thumbs{display:flex;gap:6px;padding:10px;overflow-x:auto;background:#1b1a18;width:100%}
   .d-thumb{width:78px;height:52px;flex:0 0 auto;border-radius:6px;overflow:hidden;border:2px solid transparent;padding:0;background:none;cursor:pointer;opacity:.6;transition:opacity .2s,border-color .2s}
   .d-thumb.on,.d-thumb:hover{opacity:1;border-color:#b1462c}
@@ -432,7 +434,26 @@ var WORKS = [
       ],
       tags: ["Blender", "Python", "程序化生成", "Cycles"],
       cover: "images/donut-cover.jpg",
-      gallery: ["images/gallery/donut-1.jpg", "images/gallery/donut-2.jpg", "images/gallery/donut-3.jpg", "images/gallery/donut-4.jpg", "images/gallery/donut-5.jpg", "images/gallery/donut-6.jpg", "images/gallery/donut-7.jpg", "images/gallery/donut-8.jpg", "images/gallery/donut-9.jpg"],
+      gallery: [
+        { src: "images/gallery/donut-1.jpg", title: "系列总览 · 8 组配方",
+          note: "4×2 排布 · 2400×1350 · 64 samples" },
+        { src: "images/gallery/donut-2.jpg", title: "01 草莓糖霜",
+          note: "糖霜 #EC5C90 · 粗糙 0.16 · 覆盖 0.50 · 滴落 0.30/0.50 · 彩针 280 · 方位 -16° / 仰角 32° · seed 20261014" },
+        { src: "images/gallery/donut-3.jpg", title: "02 黑巧糖霜",
+          note: "糖霜 #3A2114 · 粗糙 0.10 · 覆盖 0.70 · 滴落 0.34/0.42 · 彩针 240 · 方位 14° / 仰角 28° · seed 20261015" },
+        { src: "images/gallery/donut-4.jpg", title: "03 抹茶糖霜",
+          note: "糖霜 #7FA650 · 粗糙 0.26 · 覆盖 0.25 · 滴落 0.26/0.60 · 彩针 200 · 方位 -2° / 仰角 35° · seed 20261016" },
+        { src: "images/gallery/donut-5.jpg", title: "04 柠檬淋面",
+          note: "糖霜 #F2D64B · 粗糙 0.14 · 覆盖 0.55 · 滴落 0.22/0.75 · 彩针 150 · 方位 24° / 仰角 25° · seed 20261017" },
+        { src: "images/gallery/donut-6.jpg", title: "05 双层糖霜",
+          note: "外层 #4A2A18 + 内层 #FFF3DC · 粗糙 0.12 · 覆盖 0.60 · 滴落 0.30/0.45 · 彩针 180 · seed 20261018" },
+        { src: "images/gallery/donut-7.jpg", title: "06 糖粉甜甜圈",
+          note: "糖霜 #F7F4EE · 粗糙 0.78 · 覆盖 0 · 滴落 0.10/1.10 · 无彩针 · 方位 8° / 仰角 38° · seed 20261019" },
+        { src: "images/gallery/donut-8.jpg", title: "07 金箔黑巧",
+          note: "糖霜 #2E1B10 · 粗糙 0.08 · 覆盖 0.80 · 金属彩针 140 · 方位 -24° / 仰角 26° · seed 20261020" },
+        { src: "images/gallery/donut-9.jpg", title: "08 渐变糖霜",
+          note: "渐变 #6FC3E8 → #F17CA6 · 粗糙 0.18 · 覆盖 0.45 · 滴落 0.32/0.55 · 彩针 260 · seed 20261021" }
+      ],
       process: [
         "定方案：用 Blender Python 脚本生成整套场景，而不是手工摆模型",
         "dessert_studio.py 定义几何、材质与灯光，改参数就能重跑",
@@ -699,15 +720,24 @@ function openDetail(i){
 
   var gal = w.gallery || [];
   if (gal.length) {
-    var stage = '<div class="d-stage"><img id="dMain" src="' + esc(gal[0]) + '" alt="' + esc(w.title) + '"></div>';
+    var gsrc = function(g){ return typeof g === "string" ? g : (g.src || ""); };
+    var gcap = function(g){
+      if (typeof g === "string") return "";
+      return '<b>' + esc(g.title || "") + '</b>' + (g.note ? esc(g.note) : "");
+    };
+    var stage = '<div class="d-stage"><img id="dMain" src="' + esc(gsrc(gal[0])) + '" alt="' + esc(w.title) + '"></div>';
+    var cap = '<div class="d-cap" id="dCap">' + gcap(gal[0]) + '</div>';
     var thumbs = gal.map(function(g, i){
-      return '<button class="d-thumb' + (i === 0 ? ' on' : '') + '" data-src="' + esc(g) + '"><img src="' + esc(g) + '" alt="" loading="lazy"></button>';
+      return '<button class="d-thumb' + (i === 0 ? ' on' : '') + '" data-i="' + i + '"><img src="' + esc(gsrc(g)) + '" alt="" loading="lazy"></button>';
     }).join("");
-    $("detailMedia").innerHTML = stage + '<div class="d-thumbs">' + thumbs + '</div>';
+    $("detailMedia").innerHTML = stage + cap + '<div class="d-thumbs">' + thumbs + '</div>';
     Array.prototype.forEach.call($("detailMedia").querySelectorAll(".d-thumb"), function(btn){
       btn.onclick = function(){
+        var i = parseInt(btn.getAttribute("data-i"), 10);
         var main = $("dMain");
-        if (main) main.src = btn.getAttribute("data-src");
+        if (main) main.src = gsrc(gal[i]);
+        var c = $("dCap");
+        if (c) c.innerHTML = gcap(gal[i]);
         Array.prototype.forEach.call($("detailMedia").querySelectorAll(".d-thumb"), function(b){
           b.classList.toggle("on", b === btn);
         });
