@@ -278,8 +278,9 @@
     width:1px;background:var(--line);
   }
   .d-flow li:last-child::after{display:none}
+  .d-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
   .d-link{
-    display:inline-block;margin-top:26px;padding:10px 22px;border-radius:10px;
+    display:inline-block;margin-top:0;padding:10px 22px;border-radius:10px;
     background:var(--ink);color:#fff;font-size:13.5px;letter-spacing:.04em;
     transition:transform .2s var(--ease),background .2s;
   }
@@ -546,7 +547,14 @@ var WORKS = [
       ],
       tags: ["Python", "静态分析", "Ren'Py", "开发工具"],
       cover: "",
+      gallery: [
+        { src: "images/gallery/checker-1.jpg", title: "干净项目 · D:\\daibi",
+          note: "4 个文件 / 9 个标签 / 7 个引用 / 零断链，结论条为绿色" },
+        { src: "images/gallery/checker-2.jpg", title: "故意写坏的样本 · samples/bad.rpy",
+          note: "抓到断链 nowhere@第 7 行 + 孤立 lonely@第 17 行，结论条为红色" }
+      ],
       demo: "demos/renpy-checker/report.html",
+      demoLabel: "查看报告",
       link: "https://github.com/windirs-zxy/renpy-checker",
       process: [
         "从自己的《代笔》里发现痛点：改错一个跳转，要跑到那一幕才报错",
@@ -770,8 +778,10 @@ function openDetail(i){
       ? '<div class="d-flow" style="margin-top:22px"><h4>创作过程</h4><ol>' + w.process.map(function(s){
           return '<li>' + esc(s) + '</li>'; }).join("") + '</ol></div>'
       : '') +
-    (w.demo ? '<a class="d-link demo" href="' + esc(w.demo) + '" target="_blank" rel="noopener">在线试玩 ↗</a>' : '') +
-    (w.link ? '<a class="d-link" href="' + esc(w.link) + '" target="_blank" rel="noopener">查看作品 ↗</a>' : '') +
+    ((w.demo || w.link) ? '<div class="d-actions">' +
+      (w.demo ? '<a class="d-link demo" href="' + esc(w.demo) + '" target="_blank" rel="noopener">' + esc(w.demoLabel || "在线试玩") + ' ↗</a>' : '') +
+      (w.link ? '<a class="d-link" href="' + esc(w.link) + '" target="_blank" rel="noopener">查看作品 ↗</a>' : '') +
+    '</div>' : '') +
     '<div class="d-nav">' +
       '<button id="dPrev">← 上一个</button>' +
       '<button id="dNext">下一个 →</button>' +
